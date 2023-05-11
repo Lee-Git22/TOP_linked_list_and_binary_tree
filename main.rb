@@ -118,6 +118,7 @@ class LinkedList
     return matching_index
   end
 
+  # Represent LinkedList objects as strings
   def to_s
     output = ""
     cursor = @head
