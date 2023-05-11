@@ -83,7 +83,52 @@ class LinkedList
     new_tail.next_node = nil
     @tail = new_tail
   end
+
+  # Returns true if the passed in value is in the list and otherwise returns false.
+  def contains?(value)
+    match = false
+    cursor = @head
+
+    until match or cursor == nil
+      if cursor.value == value
+        match = true
+      else
+        cursor = cursor.next_node
+      end
+    end
+
+    match
+  end
+  # Returns the indexes of the nodes containing value as an array, or nil if not found.
+  def find(value)
+    cursor = @head
+    index = 0
+    matching_index = []
+
+    until cursor == nil
+      if cursor.value == value
+        match = true
+        matching_index << index
+      end
+      cursor = cursor.next_node
+      index += 1 
+    end
+
+    return nil if matching_index.empty?
+    return matching_index
+  end
 end
 
 test = LinkedList.new
 
+# test.append('A')
+# p test.find('B')
+# test.append('B')
+# p test.find('B')
+# test.append('B')
+# test.append('C')
+# test.append('B')
+# test.append('C')
+# p test.find('B')
+
+# test.append('C')
