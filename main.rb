@@ -63,23 +63,27 @@ class LinkedList
   # Returns the node at the given index
   def at(index)
     cursor = @head
-    tmp = 0
-
-    until tmp >= index or cursor == nil
+    index.times do
       cursor = cursor.next_node
-      tmp += 1
     end
-    
     cursor
+  end
+
+  # Removes the last element from the list
+  def pop
+    # For any linkedlist of size 1 or smaller
+    if size() - 1 <= 0
+      @head = nil
+      @tail = nil
+      return
+    end
+
+    # Otherwise, the 2nd last node is the new tail
+    new_tail = at(size() - 2)
+    new_tail.next_node = nil
+    @tail = new_tail
   end
 end
 
 test = LinkedList.new
-
-test.append('A')
-
-test.append('B')
-
-test.append('C')
-p test.at(4)
 
