@@ -15,12 +15,29 @@ class LinkedList
     @tail = nil
   end
 
+  def append(value)
+    tmp_node = Node.new(value)
+
+    # Checks if there's no head and assigns to it if there's none
+    @head ||= tmp_node
+
+    # Assigns to next node if there is a tail
+    @tail ? @tail.next_node = tmp_node : @tail = tmp_node
+
+    # Set value to tail
+    @tail = tmp_node    
+  end
 
 end
 
+test = LinkedList.new
+p test.head
 
-test = Node.new(13)
-puts test.value
+test.append('A')
+p test
 
-list = LinkedList.new()
-p list.head
+test.append('B')
+p test
+
+test.append('C')
+p test
