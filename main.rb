@@ -16,16 +16,33 @@ class LinkedList
   end
 
   def append(value)
-    tmp_node = Node.new(value)
+    new_node = Node.new(value)
 
     # Checks if there's no head and assigns to it if there's none
-    @head ||= tmp_node
+    @head ||= new_node
 
     # Assigns to next node if there is a tail
-    @tail ? @tail.next_node = tmp_node : @tail = tmp_node
+    @tail ? @tail.next_node = new_node : @tail = new_node
 
     # Set value to tail
-    @tail = tmp_node    
+    @tail = new_node    
+  end
+
+  def prepend(value)
+    new_node = Node.new(value)
+    
+    # If there is already a head, move it down and prepend
+    if @head
+      tmp = @head
+      @head = new_node
+      @head.next_node = tmp
+
+    # Otherwise create new head and tail
+    else
+      @head = new_node
+      @tail = new_node
+    end
+
   end
 
 end
@@ -33,11 +50,11 @@ end
 test = LinkedList.new
 p test.head
 
-test.append('A')
+test.prepend('A')
 p test
 
-test.append('B')
+test.prepend('B')
 p test
 
-test.append('C')
+test.prepend('C')
 p test
