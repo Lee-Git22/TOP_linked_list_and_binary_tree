@@ -15,6 +15,7 @@ class LinkedList
     @tail = nil
   end
 
+  # Adds a new node containing value to the end of the list
   def append(value)
     new_node = Node.new(value)
 
@@ -28,6 +29,7 @@ class LinkedList
     @tail = new_node    
   end
 
+  # Adds a new node containing value to the start of the list
   def prepend(value)
     new_node = Node.new(value)
     
@@ -42,19 +44,42 @@ class LinkedList
       @head = new_node
       @tail = new_node
     end
-
   end
 
+  # Returns the total number of nodes in the list
+  def size
+    cursor = @head
+    count = 0
+
+    until cursor == nil
+      cursor = cursor.next_node
+      count += 1
+
+    end
+
+    count
+  end
+
+  # Returns the node at the given index
+  def at(index)
+    cursor = @head
+    tmp = 0
+
+    until tmp >= index or cursor == nil
+      cursor = cursor.next_node
+      tmp += 1
+    end
+    
+    cursor
+  end
 end
 
 test = LinkedList.new
-p test.head
 
-test.prepend('A')
-p test
+test.append('A')
 
-test.prepend('B')
-p test
+test.append('B')
 
-test.prepend('C')
-p test
+test.append('C')
+p test.at(4)
+
