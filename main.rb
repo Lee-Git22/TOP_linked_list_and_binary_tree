@@ -117,18 +117,24 @@ class LinkedList
     return nil if matching_index.empty?
     return matching_index
   end
+
+  def to_s
+    output = ""
+    cursor = @head
+
+    until cursor == nil
+      output = output + "( #{cursor.value} ) -> " 
+      cursor = cursor.next_node
+    end
+    output += "nil"
+  end
 end
 
 test = LinkedList.new
 
-# test.append('A')
-# p test.find('B')
-# test.append('B')
-# p test.find('B')
-# test.append('B')
-# test.append('C')
-# test.append('B')
-# test.append('C')
-# p test.find('B')
+test.append('A')
+test.append('B')
+test.append('C')
 
-# test.append('C')
+p test
+puts test.to_s
