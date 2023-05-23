@@ -152,6 +152,14 @@ class Tree
     output
   end
 
+  # Accepts a node and returns its height
+  def height(node=root, node_height=-1)
+    return node_height if node == nil
+
+    node_height += 1
+    [height(node.left, node_height), height(node.right, node_height)].max
+  end
+
 
 end
 
@@ -165,6 +173,7 @@ test.pretty_print
 # puts search.data if search != nil
 # test.level_order() {|node| puts 100 + node.data}
 
-p test.inorder()
-p test.preorder() 
-p test.postorder()
+# p test.inorder()
+# p test.preorder() 
+# p test.postorder()
+puts test.height
