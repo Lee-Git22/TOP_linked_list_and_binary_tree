@@ -120,7 +120,41 @@ class Tree
 
     output
   end
+
+  # Inorder, preorder, and postorder takes a block as a proc via &block, and returns output as an array if no block given 
+  def inorder(node=root, output=[], &block)
+    return nil if node == nil
+
+    inorder(node.left, output, &block) if node.left
+    block.nil? ? output << node.data : output << block.call(node)
+    inorder(node.right, output, &block) if node.right
+
+    output
+  end
+
+  def preorder(node=root, output=[], &block)
+    return nil if node == nil
+
+    block.nil? ? output << node.data : output << block.call(node)
+    inorder(node.left, output, &block) if node.left
+    inorder(node.right, output, &block) if node.right
+
+    output
+  end
+
+  def postorder(node=root, output=[], &block)
+    return nil if node == nil
+
+    inorder(node.left, output, &block) if node.left
+    inorder(node.right, output, &block) if node.right
+    block.nil? ? output << node.data : output << block.call(node)
+
+    output
+  end
+
+
 end
+
 
 test_array = [1, 7, 4, 23, 8, 3, 5, 9, 67, 6345, 324]
 
@@ -129,4 +163,8 @@ test = Tree.new(test_array)
 test.pretty_print
 # search = test.find(6345)
 # puts search.data if search != nil
-test.level_order() {|node| puts 100 + node.data}
+# test.level_order() {|node| puts 100 + node.data}
+
+p test.inorder()
+p test.preorder() 
+p test.postorder()
