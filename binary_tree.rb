@@ -87,14 +87,13 @@ class Tree
 
   # Finds the node with the given value, returns nil if node does not exist
   def find(value, node=root)
-    return node if node == nil or node == value
+    return nil if node.nil?
+    return node if node.data == value
 
     if value < node.data
-      node.left = find(value, node.left)
-    elsif value > node.data
-      node.right = find(value, node.right)
+      find(value, node.left)
     else
-      return node
+      find(value, node.right)
     end
   end
 
@@ -157,10 +156,26 @@ class Tree
     return node_height if node == nil
 
     node_height += 1
+
+    # Returns the highest value of traversing left or right to leaf
     [height(node.left, node_height), height(node.right, node_height)].max
   end
 
+  def depth(target_node)
+    return nil if target_node == nil
+    count = 0
+    cursor = root
 
+    until cursor.data == target_node.data
+      count += 1
+      cursor = cursor.left if target_node.data < cursor.data
+      cursor = cursor.right if target_node.data > cursor.data
+    end
+
+    count
+  end
+
+  
 end
 
 
@@ -176,4 +191,4 @@ test.pretty_print
 # p test.inorder()
 # p test.preorder() 
 # p test.postorder()
-puts test.height
+# puts test.depth(test.find(6345))
