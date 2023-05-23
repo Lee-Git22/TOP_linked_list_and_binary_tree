@@ -85,11 +85,26 @@ class Tree
     node
   end
 
+  # Finds the node with the given value, returns nil if node does not exist
+  def find(value, node=root)
+    return node if node == nil or node == value
+
+    if value < node.data
+      node.left = find(value, node.left)
+    elsif value > node.data
+      node.right = find(value, node.right)
+    else
+      return node
+    end
+  end
+
 end
 
 test_array = [1, 7, 4, 23, 8, 3, 5, 9, 67, 6345, 324]
 
 test = Tree.new(test_array)
-test.pretty_print
-test.delete(67)
-test.pretty_print
+# test.pretty_print
+# test.delete(67)
+# test.pretty_print
+search = test.find(6345)
+puts search.data if search != nil
