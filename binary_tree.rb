@@ -175,11 +175,23 @@ class Tree
     count
   end
 
-  
+  # Checks if the tree is balanced where diff between left and right subtree height is less than 1
+  def balanced?(node=root)
+    left_subtree = height(node.left) 
+    right_subtree = height(node.right)
+    (left_subtree - right_subtree).between?(-1, 1)
+  end
+
+
+  # Balances a tree using in order traversal 
+  def rebalance
+    values = inorder()
+    @root = build_tree(values)
+  end
 end
 
 
-test_array = [1, 7, 4, 23, 8, 3, 5, 9, 67, 6345, 324]
+test_array =(Array.new(15) { rand(1..100) })
 
 test = Tree.new(test_array)
 
@@ -192,3 +204,26 @@ test.pretty_print
 # p test.preorder() 
 # p test.postorder()
 # puts test.depth(test.find(6345))
+puts test.balanced?
+p test.inorder()
+p test.preorder() 
+p test.postorder()
+
+
+test.insert(123)
+test.insert(12312)
+test.insert(444)
+test.insert(4536)
+
+test.pretty_print
+
+puts test.balanced?
+
+test.rebalance
+test.pretty_print
+
+puts test.balanced?
+p test.inorder()
+p test.preorder() 
+p test.postorder()
+
