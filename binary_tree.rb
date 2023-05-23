@@ -98,13 +98,35 @@ class Tree
     end
   end
 
+  # Traverses the tree in breadth-first level order and yield each node to the provided block, returns an array if no blocks given
+  def level_order(node=root, queue=[])
+    return nil if node == nil
+    
+    output = []
+    queue << node
+
+    # Continues until queue is empty
+    until queue.empty?
+      # Points to the first node in queue and shifts queue down by 1
+      cursor = queue.shift
+
+      # Yield current node if block given, or push node.data to output
+      output << block_given? ? yield(cursor) : cursor.data
+
+      # Push left and right node to queue if it exists
+      queue << cursor.left if cursor.left
+      queue << cursor.right if cursor.right
+    end
+
+    output
+  end
 end
 
 test_array = [1, 7, 4, 23, 8, 3, 5, 9, 67, 6345, 324]
 
 test = Tree.new(test_array)
-# test.pretty_print
-# test.delete(67)
-# test.pretty_print
-search = test.find(6345)
-puts search.data if search != nil
+
+test.pretty_print
+# search = test.find(6345)
+# puts search.data if search != nil
+test.level_order() {|node| puts 100 + node.data}
